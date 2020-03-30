@@ -1,2 +1,0 @@
-﻿This .apk file is the installation package for the Android phone. You can scan the QR code on the front page of the manual to install it.
-IOS mobile phone users please search and download [Pi-motion] in the App Store.
