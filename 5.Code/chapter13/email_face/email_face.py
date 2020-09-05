@@ -30,11 +30,11 @@ import os.path                                  #Analysis path
 from email import Encoders
 
 sendDate=0
-sender = "xxxxxxxxx@qq.com"                     #Send mailbox
-password = "在这里输入刚得到的密钥"
-receiver = "xxxxxxxxx@xxx.com"                  
+sender = "xxxxx@xxx.com"                     #Send mailbox
+password = "xxxx"                            
+receiver = "xxxxxxxxxx@xxx.com"                  
 #------------------------------------------
-smtp_server = "smtp.qq.com"
+smtp_server = "smtp.yahboom.com"
 smtp_port = 465                                 #SMTP port 465
 msg = MIMEMultipart('related')                  
 
@@ -98,7 +98,7 @@ while True:
             smtpObject.quit()                
             sendDate=time.time()    
     cv2.imshow("capture", frame)
-    if cv2.waitKey(1)==119:
+    if cv2.waitKey(1)==27:
         break
     
 cap.release()

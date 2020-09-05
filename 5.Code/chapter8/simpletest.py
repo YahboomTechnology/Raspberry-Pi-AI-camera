@@ -1,7 +1,11 @@
-# Simple demo of of the PCA9685 PWM servo/LED controller library.
-# This will move channel 0 from min to max position repeatedly.
-# Author: Tony DiCola
-# License: Public Domain
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jan 11 02:40:07 2019
+
+@author: pi
+"""
+
 from __future__ import division
 import time
 import Adafruit_PCA9685
@@ -27,37 +31,20 @@ def set_servo_pulse(channel, pulse):
     pulse *= 1000
     pulse //= pulse_length
     pwm.set_pwm(channel, 0, pulse)
+def set_servo_angle(channel,angle):
+    angle=4096*((angle*11)+500)/20000
+    pwm.set_pwm(channel,0,int(angle))
 
+pwm.set_pwm_freq(50)
 
-pwm.set_pwm_freq(60)
+set_servo_angle(1,0)
+time.sleep(0.8)
+set_servo_angle(1,270)
+time.sleep(0.8)
+set_servo_angle(1,0)
+
 #UP DOWN 150 390 620  1
 # RIGHT LEFT 120 390 620  2
 
 print('Moving servo on channel 0, press Ctrl-C to quit...')
 
-pwm.set_pwm(1,0,200)
-time.sleep(0.2)
-pwm.set_pwm(2, 0,200)
-time.sleep(0.2)
-    
-pwm.set_pwm(1,0,500)
-time.sleep(0.2)
-pwm.set_pwm(2, 0,390)
-time.sleep(0.2)
-
-
-'''
-updownpulse=500
-while True:
-    s=input("input: ")
-    print(s)
-    global updownpulse
-    if s==123:
-        updownpulse+=5
-        pwm.set_pwm(2,0,updownpulse)
-    elif s==321:
-        updownpulse-=5
-        pwm.set_pwm(2,0,updownpulse)
-'''        
-
-    

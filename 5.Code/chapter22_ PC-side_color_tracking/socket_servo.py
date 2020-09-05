@@ -17,8 +17,7 @@ import socket
 
 address = ('192.168.1.66',7783)#Local IP address
 
-
-#Complete the standard socket connection，binding,monitoring,to the raspberry
+#Complete the standard socket connection, binding, monitoring, to the raspberry pie for the server
 s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 s.bind(address)
 #Initialize servo
@@ -40,15 +39,15 @@ flag=0
 y=0
 
 while 1:
-    #Socket “recevie" immediately after entering the servo
+    #Socket "receive" immediately after entering the steering gear
     data,addr=s.recvfrom(2048)
     if not data:
         break
     #print("got data from",addr)
-    #socket communication data needs to be decoded first.
+    #Socket communication data needs to be decoded first
     x=data.decode()
     print(x)
-    #The value sent are x and y,and in the actual "," is used as the flag.
+    #The values sent are x and y, and in the actual "," is used as the flag.
     strX=str(x)
     arr=strX.split(',')
     #String type directly into int will report an error, so first convert to float type

@@ -1,0 +1,136 @@
+# Author: Tero Kivinen <kivinen@iki.fi>
+# Creation          : 21:41 Jun 12 1997 kivinen
+# Last Modification : 00:11 Aug 29 1996 kivinen
+# Edit time         : 0 min
+#
+# $Log: output.map,v $
+# Revision 1.1  1997/06/13 05:08:09  kivinen
+# 	Example version of output.map file.
+#
+#
+
+# Select any of following enables. These select some configuration changes
+# in output.map file.
+
+######################################################################
+# add-alternate-fi-screenchar will map alternate charsets to finnish national
+# 7-bit characters. This will change mapping of äåöÄÅÖ to {}|[]\\. 
+#
+# enable add-alternate-fi-screenchar
+
+#
+# Grammar
+# -------
+#
+# The grammar for this file is following:
+#
+# CharacterSets charsets-environment-name
+#	"charset" = screen-font-environment-name
+#	"charset" = screen-font-environment-name
+#	....
+# end
+#
+# ScreenChar screen-font-environment-name
+#	char = "font:char"
+#	char = "char"
+#	char = "font::"			# character : using "font"
+#	char = "font:with.colon:c"	# character c using "font:with.colon"
+#	....
+# end
+#
+# Every name that is used must be defined BEFORE it is used, so
+# normally the CharacterSets-struct is at the end etc..
+#
+#
+# Charsets
+# --------
+#
+# Charset can either be one of the predefined charsets (US (default), UK,
+# Line, Alt, or AltSpec) or any one character (Character after set charset
+# escape sequence (Esc ( x, Esc ) x, etc)).
+#
+#
+# Fonts
+# -----
+#
+# Fonts are system specific font names, like linedraw for linedraw font.
+# Font name and character are separated by a colon. There must be exactly one
+# character after colon.
+#
+#
+# Chars
+# -----
+#
+# Characters in ScreenChar environment key and value can be any single
+# character. You may have to do some quoting to get the all characters.
+#
+
+
+ScreenChar fi-screenchar
+	{ = "ä"
+	| = "ö"
+	} = "å"
+	[ = "Ä"
+	\\ = "Ö"
+	] = "Å"
+end
+
+ScreenChar linedraw-screenchar
+	` = "linedraw:`"
+	a = "linedraw:a"
+	b = "linedraw:b"
+	c = "linedraw:c"
+	d = "linedraw:d"
+	e = "linedraw:e"
+	f = "linedraw:f"
+	g = "linedraw:g"
+	h = "linedraw:h"
+	i = "linedraw:i"
+	j = "linedraw:j"
+	k = "linedraw:k"
+	l = "linedraw:l"
+	m = "linedraw:m"
+	n = "linedraw:n"
+	o = "linedraw:o"
+	p = "linedraw:p"
+	q = "linedraw:q"
+	r = "linedraw:r"
+	s = "linedraw:s"
+	t = "linedraw:t"
+	u = "linedraw:u"
+	v = "linedraw:v"
+	w = "linedraw:w"
+	x = "linedraw:x"
+	y = "linedraw:y"
+	z = "linedraw:z"
+	x = "linedraw:x"
+	{ = "linedraw:{"
+	| = "linedraw:|"
+	} = "linedraw:}"
+end
+
+ScreenChar uk-screenchar
+	\x23 = "£"
+end
+
+ScreenChar fi-linedraw-screenchar
+	merge fi-screenchar
+	merge linedraw-screenchar
+end
+
+CharacterSets default-charactersets
+	UK = uk-screenchar
+	Line = linedraw-screenchar
+	if enabled add-alternate-fi-screenchar
+		Alt = fi-screenchar
+		AltSpec = fi-linedraw-screenchar
+	else
+		AltSpec = linedraw-screenchar
+	end
+end
+
+# This will tell the default CharacterSets strcture.
+
+use default-charactersets
+
+

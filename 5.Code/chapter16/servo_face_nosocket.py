@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
     * @par Copyright (C): 2010-2019, Shenzhen Yahboom Tech
@@ -8,7 +8,7 @@
     * @par History
     @author: longfuSun
 """
-
+#And the operation of color is roughly the same
 from __future__ import division
 import cv2
 import Adafruit_PCA9685
@@ -22,14 +22,13 @@ pwm.set_pwm(1,0,500)
 pwm.set_pwm(2,0,500)
 time.sleep(1)
 #Initialize the camera and set the threshold
-#If you think the card is serious, please adjust the "1" and "2" two codes
+#If you feel the lag is serious, please adjust the two codes "1" and "2"
 cap = cv2.VideoCapture(0)
-#“1”，camera resolution，center poiont is（320，240）
+#"1", the resolution of the camera, the center point is (320, 240)
 
-cap.set(cv2.cv.CV_CAP_PROP_FOURCC,cv2.cv.CV_FOURCC('M','J','P','G'))
 cap.set(3, 320)
 cap.set(4, 240)
-#Import classifier
+#Classifier
 face_cascade = cv2.CascadeClassifier( '123.xml' )
 x=0;
 thisError_x=0
@@ -50,11 +49,11 @@ def xx():
         CON=0
         if CON==0:
             pwm.set_pwm(1,0,650-X_P+200)
-            #pwm.set_pwm(2,0,650-Y_P+200)
+            pwm.set_pwm(2,0,650-Y_P+200)
             CON+=1
         else:
             pwm.set_pwm(1,0,650-X_P)
-            #pwm.set_pwm(2,0,650-Y_P)
+            pwm.set_pwm(2,0,650-Y_P)
     
 
 tid=threading.Thread(target=xx)
@@ -66,8 +65,8 @@ while True:
     ret,frame = cap.read()
     
     #frame=cv2.GaussianBlur(frame,(5,5),0)
-    gray= cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-   
+    gray= cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+
     faces=face_cascade.detectMultiScale(gray)
     max_face=0
     value_x=0
@@ -85,14 +84,14 @@ while True:
         '''
         
         for(x,y,w,h) in faces:
-            #找到矩形的中心位置
+            #Find the center of the rectangle
             cv2.rectangle(frame,(x,y),(x+h,y+w),(0,255,0),2)
             result=(x,y,w,h)
             x=result[0]+w/2
             y=result[1]+h/2
-            '''
+        '''
     
-        #“2” error value
+        #“2” ,error value
         
         
     #while facebool:    
@@ -100,7 +99,7 @@ while True:
         thisError_y=y-120
         #if thisError_x > -20 and thisError_x < 20 and thisError_y > -20 and thisError_y < 20:
         #    facebool = False
-        #User can adjust the two values of P and D to detect the effect of changes in two values on the stability of the steering gear
+        #Adjust the two values of P and D by yourself, and detect the influence of the changes of the two values on the stability of the servo
         pwm_x = thisError_x*5+1*(thisError_x-lastError_x)
         pwm_y = thisError_y*5+1*(thisError_y-lastError_y)
         lastError_x = thisError_x
@@ -124,7 +123,7 @@ while True:
     #pwm.set_pwm(2,0,650-Y_P)
 
     cv2.imshow("capture", frame)
-    if cv2.waitKey(1)==119:
+    if cv2.waitKey(1)==27:
         break
     
 cap.release()

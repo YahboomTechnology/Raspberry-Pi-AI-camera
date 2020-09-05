@@ -15,7 +15,7 @@ import RPi.GPIO as GPIO
 import time
 #Set work mode to BCM
 GPIO.setmode(GPIO.BCM)
-#Set pins we will use
+#set pins we will use
 GPIO.setup(20, GPIO.OUT)
 GPIO.setup(21, GPIO.OUT)
 #run 10 times

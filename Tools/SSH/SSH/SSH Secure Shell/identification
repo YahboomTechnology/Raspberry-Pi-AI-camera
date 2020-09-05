@@ -1,0 +1,15 @@
+## This file lists the keys that the command line client ssh2.exe offers
+## to the server in public-key authentication. In case "identification"
+## does not exist in user's settings folder all keys in UserKeys folder
+## are offered to the server in public-key authentication.
+##
+## Affects also sftp2.exe and scp2.exe which use ssh2.exe for transport.
+## 
+## This file should be located in <USERPROFILE>\Application Data\SSH.
+## (Run ssh2.exe -h, it displays the full path.)
+## 
+## Format of entries:
+##  IdKey UserKeys/<my_private_key>
+##  CertKey UserCertificates/<my_private_key>
+
+#IdKey UserKeys/myprivkey

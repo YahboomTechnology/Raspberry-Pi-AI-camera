@@ -12,8 +12,8 @@
 import numpy as np
 import cv2
 
-yellow_lower=np.array([9,135,231])
-yellow_upper=np.array([31,255,255])
+yellow_lower=np.array([26,43,46])
+yellow_upper=np.array([34,255,255])
 cap=cv2.VideoCapture(0)
 
 cap.set(3,320)
@@ -24,19 +24,19 @@ while 1:
     frame=cv2.GaussianBlur(frame,(5,5),0)
     hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     mask=cv2.inRange(hsv,yellow_lower,yellow_upper)
-    #Image expansion swelling
+    #图像学膨胀腐蚀
     mask=cv2.erode(mask,None,iterations=2)
     mask=cv2.GaussianBlur(mask,(3,3),0)
     res=cv2.bitwise_and(frame,frame,mask=mask)
-    #Find outlines and draw outlines
+    #寻找轮廓并绘制轮廓
     cnts=cv2.findContours(mask.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)[-2]
    
     if len(cnts)>0:
-        #Find the largest area and draw its smallest circumscribed circle
+        #寻找面积最大的轮廓并画出其最小外接圆
         cnt=max(cnts,key=cv2.contourArea)
         (x,y),radius=cv2.minEnclosingCircle(cnt)
         cv2.circle(frame,(int(x),int(y)),int(radius),(255,0,255),2)
-        #Find the position coordinates of the object
+        #找到物体的位置坐标
         print(int(x),int(y))
     else:
         pass

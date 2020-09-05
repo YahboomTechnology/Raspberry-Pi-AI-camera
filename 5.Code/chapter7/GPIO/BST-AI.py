@@ -12,7 +12,7 @@
 """
 import RPi.GPIO as GPIO
 import time
-#Control LED pin is 9，10，11 ，buzzer pin is 16
+#Control LED pin is 9,10,11;buzzer pin is 16
 R,G,B=9,10,11
 buzzer=16
 GPIO.setmode(GPIO.BCM)
@@ -26,7 +26,7 @@ GPIO.setup(buzzer, GPIO.OUT)
 GPIO.output(buzzer, False)
 time.sleep(2)
 GPIO.output(buzzer,True)
-# Set work mode of PWM
+#Set work mode of PWM 
 pwmR = GPIO.PWM(R, 70)
 pwmG = GPIO.PWM(G, 70)
 pwmB = GPIO.PWM(B, 70)
